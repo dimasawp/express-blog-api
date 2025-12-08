@@ -3,7 +3,8 @@ import { ArticleService } from "./article.service";
 
 export const ArticleController = {
     create: async (req: Request, res: Response) => {
-        const data = { ...req.body, authorId: req.body.authorId }; // Sementara, ganti dari JWT
+        const user = (req as any).users;
+        const data = { ...req.body, authorId: user.id }; // Sementara, ganti dari JWT
         const result = await ArticleService.create(data);
         res.json(result);
     },

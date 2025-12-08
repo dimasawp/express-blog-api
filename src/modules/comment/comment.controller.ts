@@ -3,7 +3,8 @@ import { CommentService } from "./comment.service";
 
 export const CommentController = {
     create: async (req: Request, res: Response) => {
-        const data = { ...req.body, userId: req.body.userId };
+        const user = (req as any).user;
+        const data = { ...req.body, userId: user.id };
         const result = await CommentService.create(data);
         res.json(result);
     },
@@ -14,7 +15,8 @@ export const CommentController = {
     },
 
     delete: async (req: Request, res: Response) => {
-        const result = await CommentService.delete(+req.params.id);
+        const user = (req as any).user;
+        const result = await CommentService.delete(+req.params.id, user.id);
         res.json(result);
     },
 };

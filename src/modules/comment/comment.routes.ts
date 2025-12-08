@@ -1,10 +1,11 @@
 import { Router } from "express";
 import { CommentController } from "./comment.controller";
+import { authMiddleware } from "../../common/middlewares/auth.middleware";
 
 const router = Router();
 
-router.post("/", CommentController.create);
 router.get("/article/:articleId", CommentController.getByArticle);
-router.delete("/:id", CommentController.delete);
+router.post("/", authMiddleware, CommentController.create);
+router.delete("/:id", authMiddleware, CommentController.delete);
 
 export default router;
