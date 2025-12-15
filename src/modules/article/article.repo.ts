@@ -23,7 +23,7 @@ export const ArticleRepo = {
     },
     findAll: () => prisma.article.findMany({ include: { tags: true, comments: true, likes: true } }),
     findById: (id: number) => prisma.article.findUnique({ where: { id }, include: { tags: true, comments: true, likes: true } }),
-    update: async (id: number, data: any) => {
+    update: (id: number, data: any) => {
         const { tags = [], ...rest } = data;
 
         return prisma.article.update({

@@ -9,6 +9,8 @@ export const CommentService = {
         if (!comment) return ThrowError(404, "Comment not found");
 
         if (comment.userId !== userId) return ThrowError(403, "You do not own this comment");
-        CommentRepo.delete(id);
+
+        await CommentRepo.delete(id);
+        return { message: "Comment Deleted" };
     },
 };

@@ -3,7 +3,7 @@ import { ArticleService } from "./article.service";
 
 export const ArticleController = {
     create: async (req: Request, res: Response) => {
-        const user = (req as any).users;
+        const user = (req as any).user;
         const data = { ...req.body, authorId: user.id }; // Sementara, ganti dari JWT
         const result = await ArticleService.create(data);
         res.json(result);
@@ -20,12 +20,14 @@ export const ArticleController = {
     },
 
     update: async (req: Request, res: Response) => {
-        const result = await ArticleService.update(+req.params.id, req.body);
+        const user = (req as any).user;
+        const result = await ArticleService.update(+req.params.id, req.body, user.id);
         res.json(result);
     },
 
     delete: async (req: Request, res: Response) => {
-        const result = await ArticleService.delete(+req.params.id);
+        const user = (req as any).user;
+        const result = await ArticleService.delete(+req.params.id, user.id);
         res.json(result);
     },
 
