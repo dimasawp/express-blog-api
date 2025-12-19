@@ -1,11 +1,28 @@
 import { ThrowError } from "../../common/errors/ApiError";
 import { prisma } from "../../config/prisma";
 import { ArticleRepo } from "./article.repo";
+import { redis } from "../../config/redis";
 
 export const ArticleService = {
     create: (data: any) => ArticleRepo.create(data),
-    getAll: () => ArticleRepo.findAll(),
-    getById: (id: number) => ArticleRepo.findById(id),
+    getAll: async () => {
+        const cache = await redis.get("articles:all");
+        if (cache) return JSON.parse(cache);
+
+        const data = await ArticleRepo.findAll();
+        await redis.setEx("articles:all", 60, JSON.stringify(data));
+        return data;
+    },
+    getById: async (id: number) => {
+        const key = `articles:${id}`;
+
+        const cache = await redis.get(key);
+        if (cache) return JSON.parse(cache);
+
+        const data = await ArticleRepo.findById(id);
+        if (data) await redis.setEx(key, 60, JSON.stringify(data));
+        return data;
+    },
     update: async (id: number, data: any, userId: number) => {
         const article = await ArticleRepo.findById(id);
         if (!article) ThrowError(404, "Article not found");
