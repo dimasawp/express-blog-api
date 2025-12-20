@@ -4,7 +4,11 @@ import { ArticleRepo } from "./article.repo";
 import { redis } from "../../config/redis";
 
 export const ArticleService = {
-    create: (data: any) => ArticleRepo.create(data),
+    create: async (data: any) => {
+        const result = await ArticleRepo.create(data);
+        await redis.del("articles:all");
+        return result;
+    },
     getAll: async () => {
         const cache = await redis.get("articles:all");
         if (cache) return JSON.parse(cache);
@@ -15,12 +19,11 @@ export const ArticleService = {
     },
     getById: async (id: number) => {
         const key = `articles:${id}`;
-
         const cache = await redis.get(key);
         if (cache) return JSON.parse(cache);
 
         const data = await ArticleRepo.findById(id);
-        if (data) await redis.setEx(key, 60, JSON.stringify(data));
+        await redis.setEx(key, 60, JSON.stringify(data));
         return data;
     },
     update: async (id: number, data: any, userId: number) => {
@@ -30,6 +33,9 @@ export const ArticleService = {
         if (article?.authorId !== userId) ThrowError(403, "You do not own this article");
 
         const result = await ArticleRepo.update(id, data);
+
+        await redis.del("articles:all");
+        await redis.del(`articles:${id}`);
         return result;
     },
     delete: async (id: number, userId: number) => {
@@ -43,6 +49,9 @@ export const ArticleService = {
             prisma.like.deleteMany({ where: { articleId: id } }),
             prisma.article.deleteMany({ where: { id } }),
         ]);
+
+        await redis.del("articles:all");
+        await redis.del(`articles:${id}`);
 
         return { message: "Article deleted" };
     },
