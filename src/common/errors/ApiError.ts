@@ -7,6 +7,6 @@ export class ApiError extends Error {
     }
 }
 
-export const ThrowError = (status: number, message: string) => {
+export const ThrowError = (status: number, message: string): never => {
     throw new ApiError(status, message);
 };
