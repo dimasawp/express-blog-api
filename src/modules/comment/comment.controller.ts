@@ -9,7 +9,7 @@ export const CommentController = {
 
         const body = validate(createCommentSchema, req.body);
 
-        const result = await CommentService.create({ body, userId: user.id });
+        const result = await CommentService.create({ ...body, userId: user.id });
         res.json(result);
     },
 

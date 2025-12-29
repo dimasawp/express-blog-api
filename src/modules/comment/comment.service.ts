@@ -2,7 +2,7 @@ import { ThrowError } from "../../common/errors/ApiError";
 import { CommentRepo } from "./comment.repo";
 
 export const CommentService = {
-    create: (data: any) => CommentRepo.create(data),
+    create: (data: { content: string; articleId: number; userId: number }) => CommentRepo.create(data),
     getByArticle: (articleId: number) => CommentRepo.findByArticle(articleId),
     delete: async (id: number, userId: number) => {
         const comment = await CommentRepo.findById(id);

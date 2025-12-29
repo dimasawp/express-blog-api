@@ -1,29 +1,29 @@
 import { ThrowError } from "../../common/errors/ApiError";
 import { prisma } from "../../config/prisma";
 import { ArticleRepo } from "./article.repo";
-import { redis } from "../../config/redis";
+import { cacheDel, cacheGet, cacheSet } from "../../utils/cache";
 
 export const ArticleService = {
     create: async (data: any) => {
         const result = await ArticleRepo.create(data);
-        await redis.del("articles:all");
+        await cacheDel("articles:all");
         return result;
     },
     getAll: async () => {
-        const cache = await redis.get("articles:all");
+        const cache = await cacheGet("articles:all");
         if (cache) return JSON.parse(cache);
 
         const data = await ArticleRepo.findAll();
-        await redis.setEx("articles:all", 60, JSON.stringify(data));
+        await cacheSet("articles:all", 60, JSON.stringify(data));
         return data;
     },
     getById: async (id: number) => {
         const key = `articles:${id}`;
-        const cache = await redis.get(key);
+        const cache = await cacheGet(key);
         if (cache) return JSON.parse(cache);
 
         const data = await ArticleRepo.findById(id);
-        await redis.setEx(key, 60, JSON.stringify(data));
+        await cacheSet(key, 60, JSON.stringify(data));
         return data;
     },
     update: async (id: number, data: any, userId: number) => {
@@ -34,8 +34,8 @@ export const ArticleService = {
 
         const result = await ArticleRepo.update(id, data);
 
-        await redis.del("articles:all");
-        await redis.del(`articles:${id}`);
+        await cacheDel("articles:all");
+        await cacheDel(`articles:${id}`);
         return result;
     },
     delete: async (id: number, userId: number) => {
@@ -50,8 +50,8 @@ export const ArticleService = {
             prisma.article.deleteMany({ where: { id } }),
         ]);
 
-        await redis.del("articles:all");
-        await redis.del(`articles:${id}`);
+        await cacheDel("articles:all");
+        await cacheDel(`articles:${id}`);
 
         return { message: "Article deleted" };
     },
