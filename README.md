@@ -50,7 +50,7 @@ This project also serves as a portfolio to demonstrate the implementation of:
 
 ---
 
-## ⚡ Quickstart (Instalasi — Setup — Running)
+## ⚡ Quickstart
 
 ### 1. Clone repository
 
@@ -86,6 +86,8 @@ npx prisma generate
 npm run dev
 ```
 
+---
+
 ## 🧪 Testing
 
 Run unit and integration tests using:
@@ -103,6 +105,8 @@ Covered test cases
 -   Request & response validation
 
 Make sure the test database is properly configured (e.g. using .env.test if available).
+
+---
 
 ## 📁 Struktur Projek
 
@@ -161,12 +165,16 @@ This structure promotes modularity and scalability. Each module consists of:
 -   schema → request validation (Zod)
 -   routes → Express routing
 
+---
+
 ## 🎯 Project Goals
 
 -   Learning reference for RESTful API with Express & TypeScript
 -   Backend blog template
 -   Prisma ORM example
 -   API testing example with Jest
+
+---
 
 ## 🗺 Project Planning
 
