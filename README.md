@@ -52,6 +52,8 @@ This project also serves as a portfolio to demonstrate the implementation of:
 
 ## ⚡ Quickstart
 
+## ⚡ Quickstart
+
 ### 1. Clone repository
 
 ```bash
@@ -108,9 +110,9 @@ Make sure the test database is properly configured (e.g. using .env.test if avai
 
 ---
 
-## 📁 Struktur Projek
+---
 
-Contoh struktur folder (intinya):
+## 📁 Project Structure
 
 ```bash
 .
