@@ -1,39 +1,37 @@
 # 📝 Express Blog API — RESTful Blog Backend dengan Express, TypeScript & Prisma
 
-## 🚀 Deskripsi
+## 🚀 Description
 
-**Express Blog API** adalah REST & GraphQL API untuk aplikasi blog yang dibangun menggunakan **Node.js, Express, dan TypeScript**.  
-Project ini dirancang sebagai **backend service** yang mendukung autentikasi pengguna, manajemen artikel, komentar, serta fitur like dengan pendekatan yang **scalable, terstruktur, dan testable**.
+**Express Blog API** is a REST & GraphQL API for a blog application built using **Node.js, Express, and TypeScript**.  
+This project is designed as a **backend service** that supports user authentication, article management, comments, and likes, following a **scalable, well-structured, and testable** approach.
 
-Project ini juga menjadi potofolio untuk menunjukkan penerapan:
+This project also serves as a portfolio to demonstrate the implementation of:
 
 -   Clean Architecture (Controller, Service, Repository)
--   Authentication & Authorization menggunakan JWT
--   ORM database dengan Prisma
--   API testing menggunakan Jest & Supertest
--   Caching menggunakan Redis
--   Integrasi GraphQL di dalam aplikasi Express
+-   Authentication & Authorization using JWT
+-   Database ORM with Prisma
+-   API testing using Jest & Supertest
+-   Caching with Redis
+-   GraphQL integration within an Express application
 
 ---
 
 ## ✨ Features
 
-## ✨ Features
-
 -   **Authentication**
-    -   → Register & Login user dengan JWT-based authentication
+    -   → Register & login users with JWT-based authenticatio
 -   **Article Management**
-    -   → CRUD artikel (Create, Read, Update, Delete)
+    -   → CRUD articles (Create, Read, Update, Delete)
 -   **Comment System**
-    -   → Create, Read, dan Delete komentar pada artikel
+    -   → Create, read, and delete comments on articles
 -   **Like System**
-    -   → Toggle like / unlike pada artikel
+    -   → Toggle like / unlike on articles
 -   **API Architecture**
-    -   → REST API & GraphQL API berjalan berdampingan, validasi request menggunakan Zod
+    -   → REST & GraphQL APIs running side by side with request validation using Zod
 -   **Performance**
-    -   → Redis caching untuk data tertentu
+    -   → Redis caching for selected data
 -   **Testing**
-    -   → Unit & integration testing menggunakan Jest & Supertest
+    -   → Unit & integration testing using Jest & Supertest
 
 ---
 
@@ -54,8 +52,6 @@ Project ini juga menjadi potofolio untuk menunjukkan penerapan:
 
 ## ⚡ Quickstart (Instalasi — Setup — Running)
 
-Ikuti langkah berikut untuk menjalankan project secara lokal:
-
 ### 1. Clone repository
 
 ```bash
@@ -69,50 +65,44 @@ cd express-blog-api
 npm install
 ```
 
-### 3. Setup environment
-
-Buat file .env dengan menyalin .env.example dan sesuaikan variabelnya:
+### 3. Environment Setup
 
 ```bash
 cp .env.example .env
 ```
 
-Atur variabel seperti DATABASE_URL dll.
+Configure variables such as `DATABASE_URL`, `JWT_SECRET`, `REDIS_URL`, etc.
 
-### 4. Setup database
-
-Pakai Prisma:
+### 4. Database Setup
 
 ```bash
 npx prisma migrate dev --name init
 npx prisma generate
 ```
 
-### 5. Running development
+### 5. Run in development mode
 
 ```bash
 npm run dev
 ```
 
-Server akan berjalan di http://localhost:3000 (atau sesuai konfigurasi).
-
 ## 🧪 Testing
 
-Jalankan unit / integration test dengan perintah:
+Run unit and integration tests using:
 
 ```bash
 npm test
 ```
 
-Testing yang Dicakup
+Covered test cases
 
 -   Authentication API
 -   Article API
 -   Comment API
 -   Like API
--   Validasi request & response
+-   Request & response validation
 
-<!-- Pastikan database test sudah terkonfigurasi di .env.test (kalau ada). -->
+Make sure the test database is properly configured (e.g. using .env.test if available).
 
 ## 📁 Struktur Projek
 
@@ -163,24 +153,22 @@ Contoh struktur folder (intinya):
 └── tsconfig.json
 ```
 
-Struktur ini membantu modularisasi kode dan mempermudah scaling. Setiap module memiliki:
+This structure promotes modularity and scalability. Each module consists of:
 
--   controller → handle HTTP request
--   service → business logic
--   repo → akses database (Prisma)
--   schema → validasi request (Zod)
--   routes → routing Express
+-   controller → handles HTTP requests
+-   service → contains business logic
+-   repo → database access layer (Prisma)
+-   schema → request validation (Zod)
+-   routes → Express routing
 
-## 🎯 Tujuan Projek
+## 🎯 Project Goals
 
-Tujuan utama dibuatnya proyek ini:
+-   Learning reference for RESTful API with Express & TypeScript
+-   Backend blog template
+-   Prisma ORM example
+-   API testing example with Jest
 
--   💡 Sebagai referensi belajar membangun RESTful API menggunakan Node.js, Express & TypeScript.
--   🚀 Template backend blog yang siap dikembangkan menjadi aplikasi lengkap.
--   🛠 Contoh penggunaan Prisma ORM dalam struktur proyek TypeScript.
--   🧪 Contoh setup testing end-to-end menggunakan Jest.
+## 🗺 Project Planning
 
-## 🗺 Planning Project
-
--   Implementasi Docker & Docker Compose
--   Implementasi GitHub Actions (CI/CD)
+-   Docker & Docker Compose
+-   GitHub Actions (CI/CD)
